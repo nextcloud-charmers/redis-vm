@@ -1,0 +1,8 @@
+name: redis-vm
+
+display-name: Redis
+
+summary: Installs Redis
+
+description: |
+  Installs Redis.
