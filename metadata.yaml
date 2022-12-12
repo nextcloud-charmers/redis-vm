@@ -6,3 +6,11 @@ summary: Installs Redis
 
 description: |
   Installs Redis.
+
+provides:
+  redis:
+    interface: redis
+
+peers:
+  redis-peers:
+    interface: redis-peers

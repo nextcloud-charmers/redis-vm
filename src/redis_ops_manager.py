@@ -1,11 +1,16 @@
 import re
 import subprocess
 import sys
+import os
+
+from literals import (
+    CONFIG_DIR
+)
 
 class RedisOpsManager:
 
     def __init__(self):
-        self.redis_cfg = "/etc/redis/redis.conf"
+        self.redis_cfg = CONFIG_DIR
     
     def version(self):
         try:
@@ -15,3 +20,6 @@ class RedisOpsManager:
         except Exception as e:
             print("Error parsing out version from redis-cli -v", e)
             sys.exit(1)
+    
+    def start(self):
+        os.system("sudo systemctl start redis")
