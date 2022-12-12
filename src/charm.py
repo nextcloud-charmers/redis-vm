@@ -47,13 +47,13 @@ class RedisVmCharm(CharmBase):
         shutil.copy("templates/redis.conf.tmpl", f"{CONFIG_DIR}/redis.conf")
 
     def _on_install(self, event):
-        """Install redis"""
+        """Install redis, starts it and enables it with systemd"""
         os.system("curl -fsSL https://packages.redis.io/gpg | sudo gpg --yes --dearmor -o /usr/share/keyrings/redis-archive-keyring.gpg")
         with open("/etc/apt/sources.list.d/redis.list", "w+") as fh:
             fh.write("deb [signed-by=/usr/share/keyrings/redis-archive-keyring.gpg] https://packages.redis.io/deb focal main")
-        os.system("sudo apt-get update")
-        os.system("sudo apt-get install redis")
-        os.system("sudo systemctl enable redis")
+        os.system("sudo apt update")
+        os.system("sudo apt install redis redis-server redis-tools")
+        os.system("sudo systemctl enable redis --now")
         
         logger.info("Installed Redis")
     
@@ -63,7 +63,7 @@ class RedisVmCharm(CharmBase):
 
     def _on_start(self, event):
         """Handle start event."""
-        self.redis_ops_manager.start()
+        self.redis_ops_manager.reload_or_restart()
 
     def _set_status(self):
         """

@@ -23,3 +23,6 @@ class RedisOpsManager:
     
     def start(self):
         os.system("sudo systemctl start redis")
+
+    def reload_or_restart(self):
+        os.system("sudo systemctl reload-or-restart redis")
