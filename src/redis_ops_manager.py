@@ -22,7 +22,7 @@ class RedisOpsManager:
             sys.exit(1)
     
     def start(self):
-        os.system("sudo systemctl start redis")
+        os.system("sudo systemctl start redis-server")
 
     def reload_or_restart(self):
-        os.system("sudo systemctl reload-or-restart redis")
+        os.system("sudo systemctl reload-or-restart redis-server")
